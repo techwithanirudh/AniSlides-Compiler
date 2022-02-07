@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
 
-<head>
-	<%- include('../partials/head'); %>
-</head>
+  <body class="container">
+    <header><%- include('../partials/header'); %></header>
+    <div id="anialertbox"></div>
 
-<body class="container">
+    <noscript>
+      <style>
+        	.anialertbox {
+          position: absolute;
+          top: 0;
+          right: 0;
+          min-width: 100%;
+        }
+      </style>
+      <div class="anialertbox">
+        <div class="alert error" style="opacity: 100; display: block;">
+          <strong>Error!</strong> JavaScript is not enabled please enable
+          JavaScript to continue to this website. Instructions to enable
+          javascript:
+          <a
+            href="https://support.google.com/adsense/answer/12654?hl=en"
+            style="text-decoration:none;"
+            >Google Chrome Support</a
+          >.
+        </div>
+      </div>
+    </noscript>
 
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
-	<div id="anialertbox"></div>
+    <div class="container">
+      <h1>AniSlides Pick A file</h1>
+      <div class="drop-zone">
+        <span class="drop-zone__prompt">Drop file here or click to upload</span>
+        <input type="file" name="myFile" class="drop-zone__input" />
+      </div>
+    </div>
 
-	<div class="container">
-		<h1>AniSlides Pick A file</h1>
-		<div class="drop-zone">
-			<span class="drop-zone__prompt">Drop file here or click to upload</span>
-		<input type="file" name="myFile" class="drop-zone__input">
-	</div>
-	</div>
-
-	<footer>
-		<%- include('../partials/footer'); %>
-	</footer>
-
-</body>
-
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
 </html>

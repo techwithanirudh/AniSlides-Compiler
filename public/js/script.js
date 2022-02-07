@@ -74,7 +74,7 @@ async function updateThumbnail(dropZoneElement, file) {
     thumbnailElement.style.backgroundImage = `url('${"https://cdn.iconscout.com/icon/free/png-256/error-4292681-3557167.png"}')`;
     anialert(
       (title = "Error!"),
-      (content = "Error reading " + file.name),
+      (content = "Error reading " + file.name + ": " + (await response.text())),
       (type = "error")
     );
   }
