@@ -9,6 +9,16 @@ const upload = multer({ dest: "/tmp" });
 
 app.set("view engine", "ejs");
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
+
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
