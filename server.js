@@ -25,7 +25,7 @@ app.post(
     const type = file.mimetype;
     fs.readFile(path, function (err, data) {
       if (err) {
-        return res.sendStatus(403);
+        return res.status(403).send(err.message);
       }
 
       JSZip.loadAsync(data).then(
@@ -200,8 +200,8 @@ app.post(
             }
           });
         },
-        function (error) {
-          return res.send(error.message);
+        function (err) {
+          return res.status(403).send(err.message);
         }
       );
     });
