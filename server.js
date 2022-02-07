@@ -118,6 +118,7 @@ app.post(
 						fileNames.push(zipEntry.name);
 					}
 				});
+				if (fileNames.length <= 0) return res.sendStatus(403)
 				fileNames.forEach(async function(filePath, i) {
 					const file = await zip.file(filePath);
 					if (!file) return;
