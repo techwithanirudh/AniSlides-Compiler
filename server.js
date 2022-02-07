@@ -7,30 +7,31 @@ const app = express();
 const multer = require("multer");
 const upload = multer({ dest: "/tmp" });
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-	res.render('pages/index')
+  res.render("pages/index");
 });
 
 app.post(
-	"/api/v1/convert",
-	upload.single("anislide"),
-	function(req, res, next) {
-		const file = req.file;
-		const fileName = file.originalname;
-		const path = file.path;
-		const type = file.mimetype;
-		fs.readFile(path, function(err, data) {
-			if (err) {
-				return res.send(err.message);
-			}
+  "/api/v1/convert",
+  upload.single("anislide"),
+  function (req, res, next) {
+    const file = req.file;
+    const fileName = file.originalname;
+    const path = file.path;
+    const type = file.mimetype;
+    fs.readFile(path, function (err, data) {
+      if (err) {
+        return res.sendStatus(403);
+      }
 
-			JSZip.loadAsync(data).then(function(zip) {
-				var fileNames = [];
-				var html = `
+      JSZip.loadAsync(data).then(
+        function (zip) {
+          var fileNames = [];
+          var html = `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,26 +114,26 @@ app.post(
 	<div class="swiper mySwiper">
 		<div class="swiper-wrapper">
 `;
-				zip.forEach(function(relativePath, zipEntry) {
-					if (zipEntry.name.endsWith(".html")) {
-						fileNames.push(zipEntry.name);
-					}
-				});
-				if (fileNames.length <= 0) return res.sendStatus(403)
-				fileNames.forEach(async function(filePath, i) {
-					const file = await zip.file(filePath);
-					if (!file) return;
-					var fileName = file.name;
-					const fileContent = await file.async("string");
-					fileName = fileName.split(".html")[0];
-					html += `
+          zip.forEach(function (relativePath, zipEntry) {
+            if (zipEntry.name.endsWith(".html")) {
+              fileNames.push(zipEntry.name);
+            }
+          });
+          if (fileNames.length <= 0) return res.sendStatus(403);
+          fileNames.forEach(async function (filePath, i) {
+            const file = await zip.file(filePath);
+            if (!file) return;
+            var fileName = file.name;
+            const fileContent = await file.async("string");
+            fileName = fileName.split(".html")[0];
+            html += `
 			<div class="swiper-slide">
 				<iframe srcdoc="${fileName}" frameborder="0" width="100%" height="100%"></iframe>
 				<div style="display: none;">${fileContent}</div>
 			</div>
 			`;
-					if (i === fileNames.length - 1) {
-						html += `
+            if (i === fileNames.length - 1) {
+              html += `
 		</div>
 		<div class="swiper-button-next"></div>
 		<div class="swiper-button-prev"></div>
@@ -195,14 +196,18 @@ app.post(
 
 </html>
 		`;
-						return res.send(html);
-					}
-				});
-			});
-		});
-	}
+              return res.send(html);
+            }
+          });
+        },
+        function (error) {
+          return res.send(error.message);
+        }
+      );
+    });
+  }
 );
 
 app.listen(3000, () => {
-	console.log("server started");
+  console.log("server started");
 });
