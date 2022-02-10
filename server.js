@@ -47,7 +47,7 @@ app.post(
 
 <head>
 	<meta charset="utf-8" />
-	<title>Swiper demo</title>
+	<title>AniSlides | Exported File</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 	<!-- Link Swiper's CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -117,9 +117,33 @@ app.post(
 			background: #007aff;
 		}
 	</style>
+
+	<!-- media="print" means these styles will only be used by printing 
+  devices -->
+	<style type="text/css" media="print">
+    	.printable { 
+      		page-break-after: always;
+    	}
+		iframe {
+			border: none;
+			width: 100%;
+			height: 100%;
+		}
+    	.swiper {
+     		display: none;
+    	}
+	</style>
+	<!-- media="screen" means these styles will only be used by screen 
+  	devices (e.g. monitors) -->
+	<style type="text/css" media="screen">
+    	.printable {
+      		display: none;
+    	}
+	</style>
 </head>
 
 <body>
+    <button style="top: 0; left: 0" onclick="window.print()">Print</button>
 	<!-- Swiper -->
 	<div class="swiper mySwiper">
 		<div class="swiper-wrapper">
@@ -200,6 +224,14 @@ app.post(
 		  var html = htmlContainer.innerHTML;
 		  htmlContainer.remove();
 		  iframe.srcdoc = html;
+
+		  // Printable Code
+		  var printable = document.createElement('div');
+		  var printableIFrame = document.createElement('iframe');
+		  printableIFrame.srcdoc = html;
+		  printable.className = 'printable';
+		  printable.appendChild(printableIFrame);
+		  document.body.appendChild(printable);
 	  })
 	</script>
 </body>
