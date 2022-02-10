@@ -58,13 +58,6 @@ app.post(
 		body {
 			position: relative;
 			height: 100%;
-		}
-
-		body {
-			background: #eee;
-			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-			font-size: 14px;
-			color: #000;
 			margin: 0;
 			padding: 0;
 		}
@@ -129,8 +122,8 @@ app.post(
 			width: 100%;
 			height: 100%;
 		}
-    	.swiper {
-     		display: none;
+    	.swiper, .tlbButton {
+     		display: none !important;
     	}
 	</style>
 	<!-- media="screen" means these styles will only be used by screen 
@@ -140,10 +133,41 @@ app.post(
       		display: none;
     	}
 	</style>
+	<style>
+.tlbButton {
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.tlbButton {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+.tlbButton {
+    z-index: 99;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+}
+
+.tlbButton:hover {
+  background-color: #008CBA;
+  color: white;
+}
+</style>
 </head>
 
 <body>
-    <button style="top: 0; left: 0" onclick="window.print()">Print</button>
 	<!-- Swiper -->
 	<div class="swiper mySwiper">
 		<div class="swiper-wrapper">
@@ -161,7 +185,7 @@ app.post(
             const fileContent = await file.async("string");
             fileName = fileName.split(".html")[0];
             html += `
-			<div class="swiper-slide">
+			<div class="swiper-slide" data-id="${i + 1}">
 				<iframe srcdoc="${fileName}" frameborder="0" width="100%" height="100%"></iframe>
 				<div style="display: none;">${fileContent}</div>
 			</div>
@@ -178,6 +202,8 @@ app.post(
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js">
 
 	</script>
+
+    <button class="tlbButton" onclick="window.print()">Print</button>
 
 	<!-- Initialize Swiper -->
 	<script>
@@ -219,11 +245,13 @@ app.post(
   }
 	  })
 
-	  document.querySelectorAll('iframe').forEach(iframe => {
+	  document.querySelectorAll('iframe').forEach((iframe, i) => {
 		  var htmlContainer = iframe.parentElement.querySelector('div');
 		  var html = htmlContainer.innerHTML;
 		  htmlContainer.remove();
 		  iframe.srcdoc = html;
+
+		  console.log('Slide number: '+ (i + 1))
 
 		  // Printable Code
 		  var printable = document.createElement('div');
