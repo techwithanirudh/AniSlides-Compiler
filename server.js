@@ -186,8 +186,7 @@ app.post(
             fileName = fileName.split(".html")[0];
             html += `
 			<div class="swiper-slide" data-id="${i + 1}">
-				<iframe srcdoc="${fileName}" frameborder="0" width="100%" height="100%"></iframe>
-				<div style="display: none;">${fileContent}</div>
+			  ${fileContent}
 			</div>
 			`;
             if (i === fileNames.length - 1) {
@@ -245,22 +244,6 @@ app.post(
   }
 	  })
 
-	  document.querySelectorAll('iframe').forEach((iframe, i) => {
-		  var htmlContainer = iframe.parentElement.querySelector('div');
-		  var html = htmlContainer.innerHTML;
-		  htmlContainer.remove();
-		  iframe.srcdoc = html;
-
-		  console.log('Slide number: '+ (i + 1))
-
-		  // Printable Code
-		  var printable = document.createElement('div');
-		  var printableIFrame = document.createElement('iframe');
-		  printableIFrame.srcdoc = html;
-		  printable.className = 'printable';
-		  printable.appendChild(printableIFrame);
-		  document.body.appendChild(printable);
-	  })
 	</script>
 </body>
 
