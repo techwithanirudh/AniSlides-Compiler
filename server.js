@@ -280,7 +280,7 @@ app.post(
           var fileNames = [];
 	  var html = []
           zip.forEach(function (relativePath, zipEntry) {
-            if (zipEntry.name.endsWith(".html")) {
+            if (zipEntry.name.endsWith(".html") && zipEntry.name !== 'index.html') {
               fileNames.push(zipEntry.name);
             }
           });
