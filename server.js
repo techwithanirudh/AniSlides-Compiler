@@ -261,6 +261,50 @@ app.post(
   }
 );
 
+
+app.post(
+  "/api/v1/html",
+  upload.single("anislide"),
+  function (req, res, next) {
+    const file = req.file;
+    const fileName = file.originalname;
+    const path = file.path;
+    const type = file.mimetype;
+    fs.readFile(path, function (err, data) {
+      if (err) {
+        return res.status(403).send(err.message);
+      }
+
+      JSZip.loadAsync(data).then(
+        function (zip) {
+          var fileNames = [];
+	  var html = []
+          zip.forEach(function (relativePath, zipEntry) {
+            if (zipEntry.name.endsWith(".html")) {
+              fileNames.push(zipEntry.name);
+            }
+          });
+          if (fileNames.length <= 0) return res.sendStatus(403);
+          fileNames.forEach(async function (filePath, i) {
+            const file = await zip.file(filePath);
+            if (!file) return;
+            var fileName = file.name;
+            const fileContent = await file.async("string");
+            fileName = fileName.split(".html")[0];
+            html.push({id: fileName, content: fileContent})
+            if (i === fileNames.length - 1) {
+              return res.send(html);
+            }
+          });
+        },
+        function (err) {
+          return res.status(403).send(err.message);
+        }
+      );
+    });
+  }
+);
+
 app.listen(3000, () => {
   console.log("server started");
 });
