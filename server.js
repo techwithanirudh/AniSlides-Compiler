@@ -143,7 +143,7 @@ app.post(
 			Reveal.initialize({
 				controls: true,
 				progress: true,
-				center: false,
+				center: true,
 				hash: true,
                 touch: true,
 				// Learn about plugins: https://revealjs.com/plugins/
