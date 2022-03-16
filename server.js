@@ -53,10 +53,18 @@ app.post(
 	
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reset.css">
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
-		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/white.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
+
+<!-- Reveal styling fix -->
+<style>
+:root {
+  --r-main-font: auto;
+  --r-main-font-size: auto;
+}
+</style>
 
 <style>
 .tlbButton {
