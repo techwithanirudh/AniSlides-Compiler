@@ -49,91 +49,16 @@ app.post(
 	<meta charset="utf-8" />
 	<title>AniSlides | Exported File</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-	<!-- Link Swiper's CSS -->
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<!-- Link Reveal CSS -->
+	
+		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/black.css" id="theme">
 
-	<!-- Demo styles -->
-	<style>
-		html,
-		body {
-			position: relative;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-		}
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
 
-		.swiper {
-			width: 100%;
-			height: 100%;
-		}
-
-		.swiper-slide {
-			text-align: center;
-			font-size: 18px;
-			background: #fff;
-
-			/* Center slide text vertically */
-			display: -webkit-box;
-			display: -ms-flexbox;
-			display: -webkit-flex;
-			display: flex;
-			-webkit-box-pack: center;
-			-ms-flex-pack: center;
-			-webkit-justify-content: center;
-			justify-content: center;
-			-webkit-box-align: center;
-			-ms-flex-align: center;
-			-webkit-align-items: center;
-			align-items: center;
-		}
-
-		.swiper-slide img {
-			display: block;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
-
-		.swiper-pagination-bullet {
-			width: 20px;
-			height: 20px;
-			text-align: center;
-			line-height: 20px;
-			font-size: 12px;
-			color: #000;
-			opacity: 1;
-			background: rgba(0, 0, 0, 0.2);
-		}
-
-		.swiper-pagination-bullet-active {
-			color: #fff;
-			background: #007aff;
-		}
-	</style>
-
-	<!-- media="print" means these styles will only be used by printing 
-  devices -->
-	<style type="text/css" media="print">
-    	.printable { 
-      		page-break-after: always;
-    	}
-		iframe {
-			border: none;
-			width: 100%;
-			height: 100%;
-		}
-    	.swiper, .tlbButton {
-     		display: none !important;
-    	}
-	</style>
-	<!-- media="screen" means these styles will only be used by screen 
-  	devices (e.g. monitors) -->
-	<style type="text/css" media="screen">
-    	.printable {
-      		display: none;
-    	}
-	</style>
-	<style>
+<style>
 .tlbButton {
   border: none;
   color: white;
@@ -168,9 +93,9 @@ app.post(
 </head>
 
 <body>
-	<!-- Swiper -->
-	<div class="swiper mySwiper">
-		<div class="swiper-wrapper">
+	<!-- Reveal JS -->
+	<div class="reveal">
+		<div class="slides">
 `;
           zip.forEach(function (relativePath, zipEntry) {
             if (zipEntry.name.endsWith(".html")) {
@@ -185,65 +110,37 @@ app.post(
             const fileContent = await file.async("string");
             fileName = fileName.split(".html")[0];
             html += `
-			<div class="swiper-slide" data-id="${i + 1}">
+			<section>
 			  ${fileContent}
-			</div>
+			</section>
 			`;
             if (i === fileNames.length - 1) {
               html += `
 		</div>
-		<div class="swiper-button-next"></div>
-		<div class="swiper-button-prev"></div>
-		<div class="swiper-pagination"></div>
 	</div>
 
-	<!-- Swiper JS -->
-	<script src="https://unpkg.com/swiper/swiper-bundle.min.js">
+	<!-- Reveal JS -->
+		<script src="https://unpkg.com/reveal.js/dist/reveal.js"></script>
+		<script src="https://unpkg.com/reveal.js/plugin/zoom/zoom.js"></script>
+		<script src="https://unpkg.com/reveal.js/plugin/notes/notes.js"></script>
+		<script src="https://unpkg.com/reveal.js/plugin/search/search.js"></script>
+		<script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
+		<script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
 
-	</script>
-
-    <button class="tlbButton" onclick="window.print()">Print</button>
-
-	<!-- Initialize Swiper -->
+	<!-- Initialize Reveal -->
 	<script>
-		var swiper = new Swiper(".mySwiper", {
-  effect: 'creative',
-  creativeEffect: {
-    prev: {
-      translate: [0, 0, -400],
-    },
-    next: {
-      translate: ['100%', 0, 0],
-    },
-  },
-        grabCursor: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-          renderBullet: function (index, className) {
-            return '<span class="' + className + '">' + (index + 1) + "</span>";
-          },
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
 
-	  document.addEventListener('keydown', function(e) {
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
 
-  e = e || window.event;
-
-  if (e.keyCode == "37") {
-    swiper.slidePrev()
-  } else if (e.keyCode == "39") {
-    swiper.slideNext()
-  } else {
-    console.log('Key:' + e.key)
-    console.log('Key Code:' + e.keyCode)
-  }
-	  })
-
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
 	</script>
 </body>
 
