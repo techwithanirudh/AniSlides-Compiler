@@ -145,7 +145,10 @@ app.post(
 				progress: true,
 				center: true,
 				hash: true,
+				history: true,
+                disableLayout: true,
                 touch: true,
+				slideNumber: true,
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
 			});
