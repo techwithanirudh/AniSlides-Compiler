@@ -60,6 +60,10 @@ app.post(
 
 <!-- Reveal styling fix -->
 <style>
+.reveal {
+	text-align: left;
+}
+
 .reveal p {
 	font-size: initial;
 }
