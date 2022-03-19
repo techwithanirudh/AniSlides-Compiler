@@ -133,7 +133,7 @@ app.post(
           });
         },
         function (err) {
-          return res.status(403).send(err.message);
+          return res.status(500).send(err.message);
         }
       );
     });
