@@ -60,9 +60,8 @@ app.post(
 
 <!-- Reveal styling fix -->
 <style>
-:root {
-  --r-main-font: auto;
-  --r-main-font-size: auto;
+.reveal p {
+	font-size: initial;
 }
 </style>
 
