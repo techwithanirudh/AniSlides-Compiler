@@ -53,7 +53,7 @@ app.post(
 	
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reset.css">
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
-		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="https://anislides-compiler.techwithanirudh.repl.co/theme/white.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
@@ -66,44 +66,13 @@ app.post(
 }
 </style>
 
-<style>
-.tlbButton {
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-}
-
-.tlbButton {
-  background-color: white; 
-  color: black; 
-  border: 2px solid #008CBA;
-}
-
-.tlbButton {
-    z-index: 99;
-    position: fixed;
-    bottom: 20px;
-    right: 30px;
-}
-
-.tlbButton:hover {
-  background-color: #008CBA;
-  color: white;
-}
-</style>
 </head>
 
 <body>
 	<!-- Reveal JS -->
-	<div class="reveal">
-		<div class="slides">
+	<div class="theme-font-montserrat theme-color-white-blue" style="width: 100%; height: 100%;">
+    	<div class="reveal">
+			<div class="slides">
 `;
           zip.forEach(function (relativePath, zipEntry) {
             if (zipEntry.name.endsWith(".html")) {
@@ -124,6 +93,7 @@ app.post(
 			`;
             if (i === fileNames.length - 1) {
               html += `
+			</div>
 		</div>
 	</div>
 
@@ -143,12 +113,14 @@ app.post(
 			Reveal.initialize({
 				controls: true,
 				progress: true,
-				center: true,
+				center: false,
 				hash: true,
 				history: true,
                 disableLayout: true,
                 touch: true,
 				slideNumber: true,
+				transition: "slide",
+				backgroundTransition: "slide",
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
 			});
