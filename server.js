@@ -141,7 +141,6 @@ app.post(
 	<!-- Initialize Reveal -->
 	<script>
 			function revealInit(json) {
-				json = JSON.parse(json)
 				json['plugins'] = [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
 				return json;
 			}
