@@ -140,10 +140,15 @@ app.post(
 
 	<!-- Initialize Reveal -->
 	<script>
+			function revealInit(json) {
+				json = JSON.parse(json)
+				json['plugins'] = [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+				return json;
+			}
 
 			// Also available as an ES module, see:
 			// https://revealjs.com/initialization/
-			Reveal.initialize(${revealModifiedOpts});
+			Reveal.initialize(revealInit(${JSON.stringify(revealModifiedOpts)}));
 	</script>
 </body>
 
