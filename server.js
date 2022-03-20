@@ -53,7 +53,7 @@ app.post(
 	
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reset.css">
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/dist/reveal.css">
-		<link rel="stylesheet" href="https://anislides-compiler.techwithanirudh.repl.co/theme/white.css" id="theme">
+		<link rel="stylesheet" href="https://anislides-compiler.techwithanirudh.repl.co/theme/theme.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="https://unpkg.com/reveal.js/plugin/highlight/monokai.css">
