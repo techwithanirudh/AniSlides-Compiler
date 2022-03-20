@@ -21,6 +21,16 @@ app.use((req, res, next) => {
 
 app.use(express.static(__dirname + "/public"));
 
+function getOpts(base, data) {
+    for (let key in base) {
+        if (!(key in data)) {
+            data[key] = base[key]
+        }
+    }
+    
+    return data;
+}
+
 app.get("/", (req, res) => {
   res.render("pages/index");
 });
@@ -33,6 +43,23 @@ app.post(
     const fileName = file.originalname;
     const path = file.path;
     const type = file.mimetype;
+
+	const revealOpts = {
+				controls: true,
+				progress: true,
+				center: false,
+				hash: true,
+				history: true,
+                disableLayout: true,
+                touch: true,
+				slideNumber: true,
+				showNotes: true,
+				transition: "slide",
+				backgroundTransition: "slide"
+			}
+
+	  const revealModifiedOpts = getOpts(revealOpts, req.query)
+	  
     fs.readFile(path, function (err, data) {
       if (err) {
         return res.status(403).send(err.message);
@@ -62,6 +89,7 @@ app.post(
 <style>
   .reveal p {
     text-align: left;
+	font-size: initial;
   }
   .reveal ul {
     display: block;
@@ -69,10 +97,6 @@ app.post(
   .reveal ol {
     display: block;
   }
-
-.reveal p {
-	font-size: initial;
-}
 </style>
 
 </head>
@@ -119,20 +143,7 @@ app.post(
 
 			// Also available as an ES module, see:
 			// https://revealjs.com/initialization/
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				center: false,
-				hash: true,
-				history: true,
-                disableLayout: true,
-                touch: true,
-				slideNumber: true,
-				transition: "slide",
-				backgroundTransition: "slide",
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
-			});
+			Reveal.initialize(${revealModifiedOpts});
 	</script>
 </body>
 
