@@ -113,6 +113,8 @@ app.post(
 		<script src="https://unpkg.com/reveal.js/plugin/search/search.js"></script>
 		<script src="https://unpkg.com/reveal.js/plugin/markdown/markdown.js"></script>
 		<script src="https://unpkg.com/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="https://denehyg.github.io/reveal.js-menu/plugin/reveal.js-menu/menu.js">
+</script>
 
 	<!-- Initialize Reveal -->
 	<script>
@@ -125,13 +127,25 @@ app.post(
 				center: false,
 				hash: true,
 				history: true,
+				margin: 0,
+				minScale: 1,
+				maxScale: 1,
                 disableLayout: true,
                 touch: true,
 				slideNumber: true,
 				transition: "slide",
 				backgroundTransition: "slide",
+
+        menu: {
+          numbers: 'c',
+          openSlideNumber: true,
+          themes: true,
+          themesPath: 'https://denehyg.github.io/reveal.js-menu/lib/reveal.js/dist/theme/',
+          transitions: true
+        },
+
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight, RevealMenu ]
 			});
 	</script>
 </body>
